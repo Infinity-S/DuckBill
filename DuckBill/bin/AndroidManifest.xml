@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="edu.elon.hackdukeelon"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="fjkldsfjklsde"
+        android:theme="@style/AppTheme" >
+        <service
+            android:name="com.netcompss.ffmpeg4android.FFMpegRemoteServiceBridge"
+            android:exported="true"
+            android:process=":remote" >
+            <intent-filter>
+                <action android:name="com.netcompss.ffmpeg4android.FFMpegRemoteServiceBridge" >
+                </action>
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name="edu.elon.hackdukeelon.MainActivity"
+            android:label="Create Your Music Video!"
+            android:screenOrientation="landscape"  >
+        </activity>
+        <activity
+            android:name="edu.elon.hackdukeelon.SongPickerActivity"
+            android:label="Pick your song" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
