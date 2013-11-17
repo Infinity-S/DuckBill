@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -42,6 +43,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.netcompss.ffmpeg4android_client.BaseWizard;
+import com.netcompss.ffmpeg4android_client.FileUtils;
 
 public class MainActivity extends BaseWizard {
 	private Bundle recivedBundle; 
@@ -60,7 +62,7 @@ public class MainActivity extends BaseWizard {
 	private int currClipPos = 0; 
 
 	private final String AUDIO_REMOVED = "/sdcard/videokit/noAudio.mp4";
-	private final String SONG_ADDED = "/sdcard/videokit/withSong.mp4";
+	private final String SONG_ADDED = "/sdcard/videokit/withSong" + System.currentTimeMillis()+ ".mp4";
 	private final String MERGED_VIDEO = "/sdcard/videokit/merge.mp4";
 	private final String COMPILATION = "/sdcard/videokit/mylist.txt";
 	private final String SONG = "/sdcard/videokit/song.mp3";
@@ -101,6 +103,32 @@ public class MainActivity extends BaseWizard {
 			e.printStackTrace();
 		}
 
+		addMusic = (Button) findViewById(R.id.musicButton); 
+		addMusic.setEnabled(false);
+		addMusic.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				addAudio(); 
+				addMusic.setEnabled(false);
+
+			}
+		}); 
+		
+		
+		removeAudio = (Button) findViewById(R.id.removeAudio);
+		removeAudio.setEnabled(false);
+		removeAudio.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				dropAudio();
+				removeAudio.setEnabled(false);
+				addMusic.setEnabled(true);
+				
+			}
+			
+		});
 		merge = (Button) findViewById(R.id.mergeButton); 
 		merge.setOnClickListener(new OnClickListener() {
 
@@ -113,32 +141,50 @@ public class MainActivity extends BaseWizard {
 				} 
 				copyLicenseAndDemoFilesFromAssetsToSDIfNeeded();
 				compileVideos(); 
-
+				removeAudio.setEnabled(true);
+				merge.setEnabled(false);
 			}
 		});
 
-		addMusic = (Button) findViewById(R.id.musicButton); 
-		addMusic.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				addAudio(); 
-
-			}
-		}); 
 		
-		removeAudio = (Button) findViewById(R.id.removeAudio);
-		removeAudio.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View arg0) {
-				dropAudio();
-			}
-			
-		});
+		
 
 		updateList();
 
+	}
+	
+	public void moveFile(){
+		String sourcePath = SONG_ADDED;
+		File source = new File(sourcePath);
+		
+		String descPath = "/sdcard/DuckBill/";
+		File desc = new File(descPath);
+		if(source.exists()){
+			
+			Log.d("found", "Found the source, it exists");
+		try{
+			FileUtils.copyFileToFolder(sourcePath, descPath);
+			
+			Log.d("copied", "Copied successfully");
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		}		
+		
+	}
+	
+//	private Uri addVideo(File videoFile){
+//		ContentValues values = new ContentValues(3);
+//		values.put(MediaStore.Video.Media.TITLE, videoFile.getName());
+//		values.put(MediaStore.Video.Media.MIME_TYPE, "video/mp4");
+//		values.put(MediaStore.Video.Media.DATA, videoFile.getAbsolutePath());
+//		return getContentResolver().insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, values);
+//	}
+	
+	@Override
+	protected void onStop(){
+		super.onStop();
+		moveFile();
 	}
 	
 	@Override
@@ -255,7 +301,7 @@ public class MainActivity extends BaseWizard {
 		for(Clip c : clipList) {
 			clipNames.add(c.toString()); 
 			if(!c.isRecorded()) {
-				enable = true; 
+				enable = false; 
 			}
 		}
 

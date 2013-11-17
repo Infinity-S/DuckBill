@@ -26,25 +26,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignRight="@+id/songs"
+        android:layout_marginBottom="40dp"
         android:text="Add Music" />
-
-    <Button
-        android:id="@+id/mergeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/musicButton"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="33dp"
-        android:text="Merge Videos" />
 
     <Button
         android:id="@+id/removeAudio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/mergeButton"
-        android:layout_alignBottom="@+id/mergeButton"
-        android:layout_alignParentRight="true"
+        android:layout_alignBaseline="@+id/musicButton"
+        android:layout_alignBottom="@+id/musicButton"
+        android:layout_centerHorizontal="true"
         android:text="Remove Audio" />
+
+    <Button
+        android:id="@+id/mergeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/removeAudio"
+        android:layout_alignBottom="@+id/removeAudio"
+        android:layout_alignLeft="@+id/songs"
+        android:text="Merge Videos" />
 
 </RelativeLayout>

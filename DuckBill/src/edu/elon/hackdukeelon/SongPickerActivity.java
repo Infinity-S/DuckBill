@@ -48,11 +48,11 @@ public class SongPickerActivity extends Activity {
 	};
 	
 	private void buildList() {
-		//Song song1 = new Song("San Francisco Noise","R.raw.song", new int[] {9,9,8,13,12,19,17,13,10,13,18,17,18,19}); 
-		Song song1 = new Song("San Francisco Noise","R.raw.song", new int[]   {3,3,3,3,3,3,3,3,3,3,3,3,3,3}); 
+		Song song1 = new Song("San Francisco Noise","R.raw.song", new int[] {9,9,8,13,12,19,17,13,10,13,18,17,18,19}); 
+		//Song song1 = new Song("San Francisco Noise","R.raw.song", new int[]   {3,3,3,3,3,3,3,3,3,3,3,3,3,3}); 
 		songs.add(song1); 
-		//Song song2 = new Song("I'm Just Too Young For This","R.raw.song2", new int[] {4,6,11,11,5,16,15,16,12,12,10,20,11,24,21}); 
-		Song song2 = new Song("I'm Just Too Young For This","R.raw.song2", new int[] {4,5,4}); 
+		Song song2 = new Song("I'm Just Too Young For This","R.raw.song2", new int[] {4,6,11,11,5,16,15,16,12,12,10,20,11,24,21}); 
+		//Song song2 = new Song("I'm Just Too Young For This","R.raw.song2", new int[] {4,5,4}); 
 		songs.add(song2); 
 		
 		ArrayList<String> songNames = new ArrayList<String>(); 
